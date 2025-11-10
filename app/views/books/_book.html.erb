@@ -1,13 +1,15 @@
-<div id="<%= dom_id book %>">
-  <h3><%= book.title %></h3>
-  <p><strong>Description:</strong> <%= book.description %></p>
-  <p><strong>Published Year:</strong> <%= book.published_year %></p>
-  <p><strong>Author:</strong> <%= link_to book.author.name, book.author %></p>
-  <p><strong>Genres:</strong>
-    <% if book.genres.any? %>
-      <%= raw book.genres.map { |g| link_to g.name, g }.join(', ') %>
-    <% else %>
-      None
-    <% end %>
-  </p>
+<div id="<%= dom_id book %>" class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= book.title %></h3>
+  </div>
+  <div class="panel-body">
+    <p><strong>Description:</strong> <%= book.description %></p>
+    <p><strong>Published Year:</strong> <%= book.published_year %></p>
+    <p><strong>Author:</strong> <%= link_to book.author.name, book.author %></p>
+    <p><strong>Genres:</strong>
+      <% book.genres.each do |genre| %>
+        <%= link_to genre.name, genre %>
+      <% end %>
+    </p>
+  </div>
 </div>

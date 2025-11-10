@@ -8,3 +8,23 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+body {
+  background-color: #f8f9fa;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+.jumbotron {
+  background-color: #e9ecef;
+}
+
+.panel {
+  margin-bottom: 20px;
+}
+
+.form-inline .form-group {
+  margin-right: 10px;
+}

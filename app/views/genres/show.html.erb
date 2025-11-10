@@ -1,22 +1,17 @@
 <p style="color: green"><%= notice %></p>
 
-<div class="row">
-  <div class="col-md-8">
-    <%= render @genre %>
-  </div>
-  <div class="col-md-4">
-    <h3>Books in this Genre</h3>
-    <% if @genre.books.any? %>
-      <ul>
-        <% @genre.books.each do |book| %>
-          <li><%= link_to book.title, book %> by <%= link_to book.author.name, book.author %> (<%= book.published_year %>)</li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p>No books in this genre.</p>
+<%= render @genre %>
+
+<h3>Books in this Genre</h3>
+<% if @genre.books.any? %>
+  <ul>
+    <% @genre.books.each do |book| %>
+      <li><%= link_to book.title, book %> by <%= link_to book.author.name, book.author %></li>
     <% end %>
-  </div>
-</div>
+  </ul>
+<% else %>
+  <p>No books found in this genre.</p>
+<% end %>
 
 <div>
   <%= link_to "Edit this genre", edit_genre_path(@genre), class: "btn btn-warning" %> |

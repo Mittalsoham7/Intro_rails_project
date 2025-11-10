@@ -4,11 +4,9 @@ class BooksController < ApplicationController
   # GET /books or /books.json
   def index
     @books = Book.includes(:author, :genres).page(params[:page]).per(10)
-
-    if params[:query].present?
-      @books = @books.where("title ILIKE ? OR description ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+    if params[:search].present?
+      @books = @books.where("title ILIKE ? OR description ILIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
     end
-
     if params[:genre_id].present?
       @books = @books.joins(:book_genres).where(book_genres: { genre_id: params[:genre_id] })
     end
