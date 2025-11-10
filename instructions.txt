@@ -128,6 +128,11 @@ This document outlines the complete process of building a Rails book library app
    - "This is a Rails book library application that demonstrates full-stack web development skills."
    - "The app manages books, authors, and genres with a many-to-many relationship between books and genres."
 
+2. **Technology Demonstrations (3 minutes)**
+   - **Faker Implementation**: Show `db/seeds.rb` lines 5-15 where Faker generates authors and genres, and lines 25-35 for additional book data
+   - **Kaminari Implementation**: Show `app/controllers/books_controller.rb` line 4 for pagination setup, and `app/views/books/index.html.erb` lines 45-50 for pagination links
+   - **Bootstrap Implementation**: Show `app/views/layouts/application.html.erb` lines 10-15 for Bootstrap CSS, and `app/views/books/index.html.erb` lines 20-30 for Bootstrap grid classes and panel styling
+
 2. **Data Sources & Seeding (3 minutes)**
    - Show the About page and explain the three data sources
    - Demonstrate the CSV download feature

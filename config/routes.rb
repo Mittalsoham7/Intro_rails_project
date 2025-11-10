@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :libraries
   get "pages/about"
   get "pages/home"
   get "pages/download_csv"

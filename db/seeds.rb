@@ -4,6 +4,7 @@ require 'net/http'
 require 'json'
 
 # Clear existing data
+Library.destroy_all
 BookGenre.destroy_all
 Book.destroy_all
 Genre.destroy_all
@@ -88,8 +89,37 @@ Book.all.each do |book|
   end
 end
 
+# Data Source 4: CSV for Libraries with location data
+puts "Seeding libraries from CSV..."
+
+CSV.foreach(Rails.root.join('lib', 'libraries.csv'), headers: true) do |row|
+  Library.create!(
+    name: row['name'],
+    address: row['address'],
+    latitude: row['latitude'].to_f,
+    longitude: row['longitude'].to_f,
+    phone: row['phone'],
+    website: row['website']
+  )
+end
+
+# Additional libraries with Faker
+puts "Seeding additional libraries with Faker..."
+
+10.times do
+  Library.create!(
+    name: "#{Faker::Company.name} Library",
+    address: Faker::Address.full_address,
+    latitude: Faker::Address.latitude,
+    longitude: Faker::Address.longitude,
+    phone: Faker::PhoneNumber.phone_number,
+    website: Faker::Internet.url
+  )
+end
+
 puts "Seeding completed! Total records:"
 puts "Authors: #{Author.count}"
 puts "Genres: #{Genre.count}"
 puts "Books: #{Book.count}"
 puts "BookGenres: #{BookGenre.count}"
+puts "Libraries: #{Library.count}"

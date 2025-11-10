@@ -1,22 +1,24 @@
 <h1>About Our Book Library</h1>
 
 <h2>Data Sources</h2>
-<p>This application collects and displays information about books, authors, and genres. The data is sourced from three different places:</p>
+<p>This application collects and displays information about books, authors, genres, and libraries. The data is sourced from four different places:</p>
 <ul>
-  <li><strong>Faker Gem:</strong> Used to generate fake authors and predefined genres. This provides a base set of data for testing and demonstration.</li>
-  <li><strong>CSV Data:</strong> A CSV file containing information about classic books, including titles, descriptions, publication years, and author names.</li>
+  <li><strong>Faker Gem:</strong> Used to generate fake authors, genres, and additional libraries. This provides a base set of data for testing and demonstration.</li>
+  <li><strong>Books CSV Data:</strong> A CSV file containing information about classic books, including titles, descriptions, publication years, and author names.</li>
+  <li><strong>Libraries CSV Data:</strong> A CSV file with real library locations including addresses, coordinates, phone numbers, and websites.</li>
   <li><strong>Additional Faker Books:</strong> More books generated using Faker to reach the minimum record count, assigned to existing authors.</li>
 </ul>
 
 <p><strong>Download CSV Data:</strong> <%= link_to "Download the original books CSV file", pages_download_csv_path, class: "btn btn-primary" %></p>
 
 <h2>Database Schema</h2>
-<p>The database consists of four main tables:</p>
+<p>The database consists of five main tables:</p>
 <ul>
   <li><strong>Authors:</strong> Stores author information (name, bio).</li>
   <li><strong>Genres:</strong> Stores genre information (name, description).</li>
   <li><strong>Books:</strong> Stores book information (title, description, published_year, author_id).</li>
   <li><strong>BookGenres:</strong> Join table for many-to-many relationship between books and genres.</li>
+  <li><strong>Libraries:</strong> Stores library information (name, address, latitude, longitude, phone, website).</li>
 </ul>
 
 <p>Relationships:</p>

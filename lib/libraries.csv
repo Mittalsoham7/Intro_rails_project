@@ -1,0 +1,11 @@
+name,address,latitude,longitude,phone,website
+"New York Public Library","476 5th Ave, New York, NY 10018",40.7532,-73.9822,"(917) 275-6975","https://www.nypl.org"
+"Los Angeles Central Library","630 W 5th St, Los Angeles, CA 90071",34.0505,-118.2568,"(213) 228-7000","https://www.lapl.org"
+"Chicago Public Library","400 S State St, Chicago, IL 60605",41.8781,-87.6298,"(312) 747-4300","https://www.chipublib.org"
+"Boston Public Library","700 Boylston St, Boston, MA 02116",42.3496,-71.0773,"(617) 536-5400","https://www.bpl.org"
+"Seattle Public Library","1000 4th Ave, Seattle, WA 98104",47.6062,-122.3321,"(206) 386-4636","https://www.spl.org"
+"San Francisco Public Library","100 Larkin St, San Francisco, CA 94102",37.7793,-122.4156,"(415) 557-4400","https://sfpl.org"
+"Denver Public Library","10 W 14th Ave Pkwy, Denver, CO 80204",39.7384,-104.9889,"(720) 865-1111","https://www.denverlibrary.org"
+"Philadelphia Free Library","1901 Vine St, Philadelphia, PA 19103",39.9526,-75.1636,"(215) 686-5322","https://www.freelibrary.org"
+"Miami-Dade Public Library System","101 W Flagler St, Miami, FL 33130",25.7743,-80.1937,"(305) 375-2665","https://www.mdpls.org"
+"Austin Public Library","710 W Cesar Chavez St, Austin, TX 78701",30.2711,-97.7468,"(512) 974-7400","https://library.austintexas.gov"
