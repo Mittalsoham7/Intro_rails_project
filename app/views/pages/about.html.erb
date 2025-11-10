@@ -1,0 +1,61 @@
+<h1>About Our Book Library</h1>
+
+<h2>Data Sources</h2>
+<p>This application collects and displays information about books, authors, and genres. The data is sourced from three different places:</p>
+<ul>
+  <li><strong>Faker Gem:</strong> Used to generate fake authors and predefined genres. This provides a base set of data for testing and demonstration.</li>
+  <li><strong>CSV Data:</strong> A CSV file containing information about classic books, including titles, descriptions, publication years, and author names.</li>
+  <li><strong>Additional Faker Books:</strong> More books generated using Faker to reach the minimum record count, assigned to existing authors.</li>
+</ul>
+
+<p><strong>Download CSV Data:</strong> <%= link_to "Download the original books CSV file", pages_download_csv_path, class: "btn btn-primary" %></p>
+
+<h2>Database Schema</h2>
+<p>The database consists of four main tables:</p>
+<ul>
+  <li><strong>Authors:</strong> Stores author information (name, bio).</li>
+  <li><strong>Genres:</strong> Stores genre information (name, description).</li>
+  <li><strong>Books:</strong> Stores book information (title, description, published_year, author_id).</li>
+  <li><strong>BookGenres:</strong> Join table for many-to-many relationship between books and genres.</li>
+</ul>
+
+<p>Relationships:</p>
+<ul>
+  <li>Author has_many Books</li>
+  <li>Book belongs_to Author</li>
+  <li>Book has_many Genres through BookGenres</li>
+  <li>Genre has_many Books through BookGenres</li>
+</ul>
+
+<h2>ERD Diagram</h2>
+<p>Below is a simple text-based ERD:</p>
+<pre>
++-----------+     +-----------+
+|  Authors  |     |   Books   |
++-----------+     +-----------+
+| id        |<----| id        |
+| name      |     | title     |
+| bio       |     | desc      |
++-----------+     | pub_year  |
+                  | author_id |
+                  +-----------+
+                       |
+                       |  +-------------+
+                       +--| BookGenres  |
+                          +-------------+
+                          | id          |
+                          | book_id     |
+                          | genre_id    |
+                          +-------------+
+                               |
+                               |
+                          +-----------+
+                          |  Genres   |
+                          +-----------+
+                          | id        |
+                          | name      |
+                          | desc      |
+                          +-----------+
+</pre>
+
+

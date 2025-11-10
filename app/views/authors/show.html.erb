@@ -1,0 +1,26 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="row">
+  <div class="col-md-8">
+    <%= render @author %>
+  </div>
+  <div class="col-md-4">
+    <h3>Books by this Author</h3>
+    <% if @author.books.any? %>
+      <ul>
+        <% @author.books.each do |book| %>
+          <li><%= link_to book.title, book %> (<%= book.published_year %>)</li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>No books by this author.</p>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <%= link_to "Edit this author", edit_author_path(@author), class: "btn btn-warning" %> |
+  <%= link_to "Back to authors", authors_path, class: "btn btn-default" %>
+
+  <%= button_to "Destroy this author", @author, method: :delete, class: "btn btn-danger" %>
+</div>

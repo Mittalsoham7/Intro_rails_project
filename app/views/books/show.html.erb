@@ -1,0 +1,41 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="row">
+  <div class="col-md-8">
+    <%= render @book %>
+  </div>
+  <div class="col-md-4">
+    <h3>Author Details</h3>
+    <p><strong>Name:</strong> <%= @book.author.name %></p>
+    <p><strong>Bio:</strong> <%= @book.author.bio %></p>
+    <p><%= link_to "View all books by this author", @book.author, class: "btn btn-info" %></p>
+
+    <h3>Genres</h3>
+    <% if @book.genres.any? %>
+      <ul>
+        <% @book.genres.each do |genre| %>
+          <li><%= link_to genre.name, genre %> - <%= genre.description %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>No genres assigned.</p>
+    <% end %>
+
+    <h3>Other Books in Same Genres</h3>
+    <% @book.genres.each do |genre| %>
+      <h4><%= genre.name %></h4>
+      <ul>
+        <% genre.books.where.not(id: @book.id).limit(5).each do |book| %>
+          <li><%= link_to book.title, book %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <%= link_to "Edit this book", edit_book_path(@book), class: "btn btn-warning" %> |
+  <%= link_to "Back to books", books_path, class: "btn btn-default" %>
+
+  <%= button_to "Destroy this book", @book, method: :delete, class: "btn btn-danger" %>
+</div>
