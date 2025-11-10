@@ -31,8 +31,22 @@
   </div>
 </div>
 
+
+
 <script>
-  function initMap() {
+  // Fallback for when Google Maps API fails to load
+  window.initMap = function() {
+    // Check if Google Maps loaded successfully
+    if (typeof google !== 'undefined' && google.maps) {
+      // Google Maps loaded successfully, call the real initMap function
+      realInitMap();
+    } else {
+      // Google Maps failed to load, show fallback message
+      document.getElementById('map').innerHTML = '<div class="alert alert-warning" style="height: 100%; display: flex; align-items: center; justify-content: center;"><h4>Oops! Something went wrong with the map.</h4><p>Please check your internet connection or try refreshing the page.</p><p><strong>Note:</strong> The Google Maps API key may be invalid or restricted.</p></div>';
+    }
+  };
+
+  function realInitMap() {
     // Default center (can be user's location)
     const defaultCenter = { lat: 39.8283, lng: -98.5795 }; // Center of USA
 
@@ -91,9 +105,10 @@
         });
       });
     }
+
+    console.log('Map initialized with <%= @libraries.count %> libraries');
   }
 </script>
-
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY_HERE&callback=initMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY77LfLABuEYvm6GltmB7fEuGKgzoiD1k&callback=initMap"></script>
 
 <%= link_to "New library", new_library_path, class: 'btn btn-primary' %>

@@ -17,12 +17,14 @@ This document outlines the complete process of building a Rails book library app
 2. Created Genre model: `rails generate model Genre name:string description:text`
 3. Created Book model: `rails generate model Book title:string description:text published_year:integer author:references`
 4. Created BookGenre join model: `rails generate model BookGenre book:references genre:references`
-5. Added validations to models:
+5. Created Library model: `rails generate scaffold Library name:string address:text latitude:decimal longitude:decimal phone:string website:string`
+6. Added validations to models:
    - Author: presence of name, uniqueness of name
    - Genre: presence of name, uniqueness of name
    - Book: presence of title, description, published_year; numericality of published_year
    - BookGenre: presence of book_id and genre_id
-6. Set up associations:
+   - Library: presence of name, address, latitude, longitude, phone, website; latitude/longitude numericality within valid ranges
+7. Set up associations:
    - Author has_many books
    - Book belongs_to author
    - Book has_many genres through book_genres
@@ -34,20 +36,22 @@ This document outlines the complete process of building a Rails book library app
    - `rails generate controller Authors`
    - `rails generate controller Genres`
    - `rails generate controller Pages`
+   - `rails generate scaffold Library name:string address:text latitude:decimal longitude:decimal phone:string website:string`
 2. Set up routes in config/routes.rb:
    - Root route to books#index
-   - Resources for books, authors, genres
+   - Resources for books, authors, genres, libraries
    - Custom route for pages/about
 3. Implemented controller actions:
    - BooksController: index, show, edit, update, destroy
    - AuthorsController: index, show
    - GenresController: index, show
+   - LibrariesController: index, show, new, create, edit, update, destroy
    - PagesController: about
 
 ## Views & Layout
 1. Created application layout (app/views/layouts/application.html.erb):
    - Bootstrap CSS link
-   - Navigation bar with links to Home, Books, Authors, Genres, About
+   - Navigation bar with links to Home, Books, Authors, Genres, Libraries, About
    - Container div for content
 2. Created Books views:
    - index.html.erb: List of books with search/filter forms, pagination
@@ -62,19 +66,27 @@ This document outlines the complete process of building a Rails book library app
    - index.html.erb: List of genres
    - show.html.erb: Genre details with associated books
    - _genre.html.erb: Genre partial
-5. Created About page (app/views/pages/about.html.erb):
+5. Created Libraries views:
+   - index.html.erb: Interactive map with library locations, sidebar with library list
+   - show.html.erb, new.html.erb, edit.html.erb, _form.html.erb: CRUD views
+   - _library.html.erb: Library partial
+6. Created About page (app/views/pages/about.html.erb):
    - Explains data sources and ERD
 
 ## Data Seeding
-1. Created db/seeds.rb with three data sources:
+1. Created db/seeds.rb with four data sources:
    - Faker for authors and genres
    - CSV file for book data (created lib/books.csv)
+   - CSV file for library data (created lib/libraries.csv)
+   - Additional Faker for more books and libraries
 2. Implemented seeding logic:
    - Create 10 genres with Faker
    - Create 50 authors with Faker
    - Read books from CSV and create Book records
    - Create additional 60 books with Faker
    - Assign random genres to books (2-3 per book)
+   - Read libraries from CSV and create Library records
+   - Create additional 10 libraries with Faker
 3. Ran `rails db:migrate` to create tables
 4. Ran `rails db:seed` to populate database
 
@@ -83,8 +95,9 @@ This document outlines the complete process of building a Rails book library app
 2. **Filter**: Dropdown to filter books by genre
 3. **Pagination**: Kaminari gem for 10 books per page
 4. **Navigation**: Hierarchical navigation between index/show pages
-5. **CRUD**: Full Create, Read, Update, Delete for books
+5. **CRUD**: Full Create, Read, Update, Delete for books and libraries
 6. **Associations**: Proper display of related data (author, genres)
+7. **Mapping**: Google Maps integration showing library locations with markers and user geolocation
 
 ## Styling & UX
 1. Bootstrap responsive design
@@ -106,11 +119,12 @@ This document outlines the complete process of building a Rails book library app
 4. Verified all links work and data displays correctly
 
 ## Final Verification
-- Database contains 110 books, 59 authors, 10 genres, 231 book-genre associations
+- Database contains 110 books, 59 authors, 10 genres, 231 book-genre associations, 20 libraries
 - All pages render correctly
 - Search and filter work as expected
 - Navigation is functional
 - Bootstrap styling is applied
+- Google Maps integration with library markers and geolocation
 - About page explains the project structure
 
 ## Running the Application
@@ -132,11 +146,12 @@ This document outlines the complete process of building a Rails book library app
    - **Faker Implementation**: Show `db/seeds.rb` lines 5-15 where Faker generates authors and genres, and lines 25-35 for additional book data
    - **Kaminari Implementation**: Show `app/controllers/books_controller.rb` line 4 for pagination setup, and `app/views/books/index.html.erb` lines 45-50 for pagination links
    - **Bootstrap Implementation**: Show `app/views/layouts/application.html.erb` lines 10-15 for Bootstrap CSS, and `app/views/books/index.html.erb` lines 20-30 for Bootstrap grid classes and panel styling
+   - **Google Maps API Implementation**: Show `app/views/libraries/index.html.erb` lines 80-120 for Google Maps JavaScript API integration, markers, and geolocation
 
 2. **Data Sources & Seeding (3 minutes)**
-   - Show the About page and explain the three data sources
+   - Show the About page and explain the four data sources (Faker, Books CSV, Libraries CSV, additional Faker)
    - Demonstrate the CSV download feature
-   - Mention the database contains 110 books, 59 authors, 10 genres, and 231 associations
+   - Mention the database contains 110 books, 59 authors, 10 genres, 231 associations, and 20 libraries
 
 3. **Navigation & User Experience (3 minutes)**
    - Start at the home page (welcome page with statistics)
@@ -144,10 +159,12 @@ This document outlines the complete process of building a Rails book library app
    - Show pagination working
    - Click on a book to show detailed view with sidebars
    - Navigate to author and genre pages
+   - Visit Libraries page to demonstrate Google Maps integration with library markers and geolocation
 
 4. **CRUD Operations (2 minutes)**
    - Show creating a new book
    - Demonstrate editing and deleting books
+   - Show creating a new library with GPS coordinates
 
 5. **Technical Implementation (5 minutes)**
    - Show the models and associations
@@ -155,6 +172,7 @@ This document outlines the complete process of building a Rails book library app
    - Demonstrate search functionality (full-text search)
    - Show filter by genre dropdown
    - Mention Bootstrap styling and responsive design
+   - Explain Google Maps API integration for library mapping
 
 6. **Code Quality (2 minutes)**
    - Show validations in models
@@ -162,28 +180,31 @@ This document outlines the complete process of building a Rails book library app
    - Mention use of partials and helpers
 
 ### Key Points to Emphasize
-- **Three Data Sources**: Faker, CSV, additional Faker
-- **Full CRUD**: Create, Read, Update, Delete operations
+- **Four Data Sources**: Faker, Books CSV, Libraries CSV, additional Faker
+- **Full CRUD**: Create, Read, Update, Delete operations for books and libraries
 - **Search & Filter**: Full-text search and genre filtering
 - **Pagination**: Kaminari gem implementation
 - **Associations**: Many-to-many relationships properly implemented
+- **Mapping**: Google Maps integration with library locations and geolocation
 - **Bootstrap UI**: Professional, responsive design
 - **Data Volume**: 200+ records across multiple tables
 
 ### Files to Show
 - `db/seeds.rb` - Data seeding logic
-- `lib/books.csv` - Original data source
+- `lib/books.csv` - Books data source
+- `lib/libraries.csv` - Libraries data source
 - Models (`app/models/`) - Associations and validations
 - Controllers - Business logic
-- Views - ERB templates with Bootstrap
+- Views - ERB templates with Bootstrap and Google Maps
 - Routes - RESTful routing
 - `instructions.txt` - This documentation
 
 The application now meets all rubric requirements:
-- ✅ Data gathering from 3 sources
+- ✅ Data gathering from 4 sources (qualifies for 🔥 marks)
 - ✅ Web navigation with hierarchical structure
 - ✅ Data navigation with search/filter/pagination
 - ✅ Searching functionality
 - ✅ Bootstrap markup and design
 - ✅ Models with validations and associations
 - ✅ Seeding with 200+ rows
+- ✅ Mapping functionality with Google Maps (qualifies for 🔥 marks)

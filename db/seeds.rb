@@ -106,9 +106,9 @@ end
 # Additional libraries with Faker
 puts "Seeding additional libraries with Faker..."
 
-10.times do
+10.times do |i|
   Library.create!(
-    name: "#{Faker::Company.name} Library",
+    name: "#{Faker::Company.name} Library #{i}",
     address: Faker::Address.full_address,
     latitude: Faker::Address.latitude,
     longitude: Faker::Address.longitude,
